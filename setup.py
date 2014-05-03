@@ -6,6 +6,7 @@ setup(
  version = str(itunes_search.__version__),
  description = itunes_search.__doc__,
  py_modules = ['itunes_search'],
+ zip_safe=False,
  install_requires = [
   'requests',
  ],
