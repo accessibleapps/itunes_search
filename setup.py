@@ -1,10 +1,14 @@
 from setuptools import setup
-import itunes_search
+
+__version__ = 0.3
+__author__ = 'Christopher Toth'
+__doc__ = """Simple wrapper over the iTunes search API"""
+
 
 setup(
- name = itunes_search.__name__,
- version = str(itunes_search.__version__),
- description = itunes_search.__doc__,
+ name = __name__,
+ version = str(__version__),
+ description = __doc__,
  py_modules = ['itunes_search'],
  zip_safe=False,
  install_requires = [
