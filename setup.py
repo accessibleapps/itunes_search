@@ -6,7 +6,7 @@ __doc__ = """Simple wrapper over the iTunes search API"""
 
 
 setup(
- name = __name__,
+ name = 'itunes_search',
  version = str(__version__),
  description = __doc__,
  py_modules = ['itunes_search'],
