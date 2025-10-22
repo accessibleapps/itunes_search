@@ -9,8 +9,6 @@ authors = [
     {name = "Christopher Toth"},
 ]
 description = "Simple wrapper over the iTunes search API"
-readme = "README.md"
-license = {file = "LICENSE"}
 requires-python = ">=3.8"
 classifiers = [
     "Development Status :: 4 - Beta",
