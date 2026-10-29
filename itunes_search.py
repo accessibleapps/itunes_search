@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Tuple, Union
 
 import requests
 
@@ -15,10 +15,22 @@ def search(
     lang: str = "en_us",
     explicit: str = "Yes",
     session: Optional[requests.Session] = None,
+    *,
+    timeout: Optional[Union[float, Tuple[Optional[float], Optional[float]]]] = None,
 ):
     if session is None:
         session = requests.Session()
-    params = {k: v for k, v in locals().items() if v is not None and k != "session"}
-    response = session.get(BASE_URL, params=params)
+    params = {
+        "term": term,
+        "country": country,
+        "media": media,
+        "entity": entity,
+        "attribute": attribute,
+        "limit": limit,
+        "lang": lang,
+        "explicit": explicit,
+    }
+    params = {k: v for k, v in params.items() if v is not None}
+    response = session.get(BASE_URL, params=params, timeout=timeout)
     response.raise_for_status()
     return response.json()["results"]
