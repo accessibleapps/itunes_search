@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import MagicMock, patch
 
 import requests
 
@@ -8,7 +8,8 @@ from itunes_search import BASE_URL, search
 
 class RequestTimeoutTests(unittest.TestCase):
     def setUp(self):
-        self.session = Mock(spec=requests.Session)
+        self.session = MagicMock(spec=requests.Session)
+        self.session.__enter__.return_value = self.session
         self.results = [{"trackName": "Planet Money"}]
         self.session.get.return_value.json.return_value = {"results": self.results}
         self.default_params = {
