@@ -21,7 +21,10 @@ session ownership were checked against this branch's itunes_search.py.
 Apple's current Search API documentation confirms podcast searches, parameter
 meanings, language values and the documented limit range:
 https://performance-partners.apple.com/search-api.
-The README makes no promise about internal-session cleanup or a timeout option.
+PRs #6 (session cleanup) and #5 (timeout) merged to master before this PR.
+Merging master in, the README and docstring now document the keyword-only
+timeout and the closing of sessions that search() creates, checked against
+master's itunes_search.py.
 
 ## Surprises
 
@@ -29,5 +32,5 @@ None beyond the previously verified absence of README and public docstring.
 
 ## Next step
 
-Parent inspects the diff, commits and publishes the independent PR for #4, then
-checks GitHub for any checks. Do not claim CI passed if no checks exist.
+Q authorized merging on 2026-10-29. Merge PR #7 after its review gate passes.
+There is no hosted CI.

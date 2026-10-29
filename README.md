@@ -39,6 +39,7 @@ and entity selected; use Apple's documentation for their meanings.
 | `lang` | `"en_us"` | Result language: `"en_us"` or `"ja_jp"`. |
 | `explicit` | `"Yes"` | Include explicit content with `"Yes"`; exclude it with `"No"`. |
 | `session` | `None` | Optional caller-owned `requests.Session`. |
+| `timeout` | `None` | Keyword-only. Requests timeout in seconds, or a `(connect, read)` tuple; `None` waits indefinitely. |
 
 Query arguments whose values are `None` are omitted. The wrapper forwards query
 values to Apple without validating them; consult the API documentation for valid
@@ -46,8 +47,10 @@ media, entity, and attribute combinations.
 
 ## Reuse a session
 
-Supply a session to reuse connections across searches. You own its lifetime;
-`search()` leaves it open. A Requests context manager closes it when finished:
+Without a session, `search()` creates one and closes it before returning or
+raising. Supply a session to reuse connections across searches. You own its
+lifetime; `search()` leaves it open. A Requests context manager closes it when
+finished:
 
 ```python
 import requests
@@ -60,7 +63,8 @@ with requests.Session() as session:
 
 ## Errors
 
-Transport errors and HTTP errors from Requests propagate to the caller. The
+Transport errors, including `requests.exceptions.Timeout`, and HTTP errors from
+Requests propagate to the caller. The
 function checks HTTP status before decoding JSON. JSON decoding errors also
 propagate, and a response without a `results` key raises `KeyError`. Errors are
 not converted to an empty result list.
