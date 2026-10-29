@@ -1,3 +1,4 @@
+from contextlib import nullcontext
 from typing import Optional
 
 import requests
@@ -16,9 +17,8 @@ def search(
     explicit: str = "Yes",
     session: Optional[requests.Session] = None,
 ):
-    if session is None:
-        session = requests.Session()
-    params = {k: v for k, v in locals().items() if v is not None and k != "session"}
-    response = session.get(BASE_URL, params=params)
-    response.raise_for_status()
-    return response.json()["results"]
+    with requests.Session() if session is None else nullcontext(session) as session:
+        params = {k: v for k, v in locals().items() if v is not None and k != "session"}
+        response = session.get(BASE_URL, params=params)
+        response.raise_for_status()
+        return response.json()["results"]
